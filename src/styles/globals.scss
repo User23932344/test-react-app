@@ -1,0 +1,15 @@
+@import './variables';
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  background-color: $color-bg;
+  color: $color-text;
+}
+
+* {
+  box-sizing: border-box;
+}
