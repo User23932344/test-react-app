@@ -1,6 +1,7 @@
-export interface Note{
+export interface Item {
     id: string;
     title: string;
     description?: string;
-    createdAd:string;
-}
+    createdAt: string;
+  }
+  

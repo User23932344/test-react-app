@@ -1,28 +1,38 @@
 @import "../../styles/variables";
 
-.app {
+.layout {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  background: $color-bg;
+  color: $color-text;
 }
+
+/* ---------- HEADER ---------- */
 
 .header {
-  background-color: $color-header;
+  background: $color-header;
   padding: 1rem;
   text-align: center;
+  flex-shrink: 0;
 }
 
-.body {
+/* ---------- BODY ---------- */
+
+.layout__body {
   display: flex;
-  min-height: 0; // важно для корректной работы overflow
+  flex: 1;
+  overflow: hidden; // запрещаем общий скролл
 }
+
+/* ---------- SIDEBAR ---------- */
 
 .sidebar {
   width: $sidebar-width;
-  background-color: $color-sidebar;
-  overflow-y: auto;
+  background: $color-sidebar;
   padding: 1rem;
   flex-shrink: 0;
+  overflow-y: auto;
 
   ul {
     list-style: none;
@@ -43,70 +53,25 @@
   }
 }
 
-.content {
+/* ---------- CONTENT ---------- */
+
+.layout__content {
   flex: 1;
+  padding: 1rem;
   overflow-y: auto;
-  padding: 1rem;
 }
 
-.footer {@import "../../styles/variables";
-
-.app {
-  height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}
-
-.header {
-  background-color: $color-header;
-  padding: 1rem;
-  text-align: center;
-}
-
-.body {
-  display: flex;
-  min-height: 0; // важно для корректной работы overflow
-}
-
-.sidebar {
-  width: $sidebar-width;
-  background-color: $color-sidebar;
-  overflow-y: auto;
-  padding: 1rem;
-  flex-shrink: 0;
-
-  ul {
-    list-style: none;
-    padding: 0;
-
-    li {
-      margin-bottom: 1rem;
-    }
-
-    a {
-      color: $color-text;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-}
-
-.content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1rem;
-}
+/* ---------- FOOTER ---------- */
 
 .footer {
-  background-color: $color-footer;
+  background: $color-footer;
   text-align: center;
   padding: 1rem;
+  flex-shrink: 0;
 }
 
-/* 📱 Адаптив */
+/* ---------- ADAPTIVE ---------- */
+
 @media (max-width: $breakpoint-tablet) {
   .sidebar {
     width: 180px;
@@ -119,30 +84,7 @@
 }
 
 @media (min-width: $breakpoint-desktop) {
-  .content {
-    padding: 2rem;
-  }
-}
-
-  background-color: $color-footer;
-  text-align: center;
-  padding: 1rem;
-}
-
-/* 📱 Адаптив */
-@media (max-width: $breakpoint-tablet) {
-  .sidebar {
-    width: 180px;
-    padding: 0.5rem;
-  }
-
-  .header h1 {
-    font-size: 1.2rem;
-  }
-}
-
-@media (min-width: $breakpoint-desktop) {
-  .content {
+  .layout__content {
     padding: 2rem;
   }
 }

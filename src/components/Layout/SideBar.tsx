@@ -6,7 +6,8 @@ export default function Sidebar() {
       <nav>
         <ul>
           <li><Link to="/">Главная</Link></li>
-          <li><Link to="/data">Данные</Link></li>
+          <li><Link to="/data">Заметки</Link></li>
+          <li><Link to="/trash">Корзина</Link></li>
         </ul>
       </nav>
     </aside>
