@@ -93,10 +93,10 @@ export default function DataPage() {
   //----------------------------------------------------------------------
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>Список элементов</h1>
+      <h1 className={styles.title}>Ваши заметки</h1>
 
       <button onClick={handleAdd} className={styles.addButton}>
-        Добавить элемент
+        Добавить заметку
       </button>
 
       {isLoading && <div className={styles.state}>Загрузка...</div>}
@@ -106,7 +106,8 @@ export default function DataPage() {
         <div className={styles.state}>Нет элементов</div>
       )}
 
-      {data && data.length > 0 && (<ul className={styles.list}>
+      {data && data.length > 0 && (
+        <ul className={styles.list}>
         {data.map((item) => (
           <li key={item.id} className={styles.item}>
             <div className={styles.itemContent}>
@@ -117,21 +118,60 @@ export default function DataPage() {
             </div>
 
             <div className={styles.itemActions}>
-              <button onClick={() => handleEdit(item)}>Редактировать</button>
-              <button onClick={() => handleDelete(item)}>Удалить</button>
+              <button className={styles.editButton}
+              onClick={() => handleEdit(item)}>
+                <img src="/Vector.svg" alt="Редактировать" />
+              </button>
+              <button
+                className={styles.deleteButton}
+                onClick={() => handleDelete(item)}
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14.7404 9L14.3942 18M9.60577 18L9.25962 9M19.2276 5.79057C19.5696 5.84221 19.9104 5.89747 20.25 5.95629M19.2276 5.79057L18.1598 19.6726C18.0696 20.8448 17.0921 21.75 15.9164 21.75H8.08357C6.90786 21.75 5.93037 20.8448 5.8402 19.6726L4.77235 5.79057M19.2276 5.79057C18.0812 5.61744 16.9215 5.48485 15.75 5.39432M3.75 5.95629C4.08957 5.89747 4.43037 5.84221 4.77235 5.79057M4.77235 5.79057C5.91878 5.61744 7.07849 5.48485 8.25 5.39432M15.75 5.39432V4.47819C15.75 3.29882 14.8393 2.31423 13.6606 2.27652C13.1092 2.25889 12.5556 2.25 12 2.25C11.4444 2.25 10.8908 2.25889 10.3394 2.27652C9.16065 2.31423 8.25 3.29882 8.25 4.47819V5.39432M15.75 5.39432C14.5126 5.2987 13.262 5.25 12 5.25C10.738 5.25 9.48744 5.2987 8.25 5.39432"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
             </div>
           </li>
 
         ))}
       </ul>
-    )}
-
+      )}
 
       {/* Модалка создания/редактирования */}
-      <Modal open={modalOpen} onClose={closeModal}>
-        <div>
-          <h2>{editingItem ? "Редактирование элемента" : "Добавление элемента"}</h2>
+      <Modal
+        open={modalOpen}
+        onClose={closeModal}
+        title={editingItem ? "Редактирование элемента" : "Добавление элемента"}
+        actions={
+          <>
+            <div className={styles.buttons}>
+              <button
+                className={styles.primary}
+                onClick={editingItem ? handleUpdate : handleCreate}
+              >
+                Сохранить
+              </button>
 
+              <button className={styles.secondary} onClick={closeModal}>
+                Отмена
+              </button>
+            </div>
+          </>
+        }
+      >
+        <div className={styles.text}>
           <input
             type="text"
             placeholder="Название"
@@ -145,28 +185,32 @@ export default function DataPage() {
             onChange={(e) => setDescription(e.target.value)}
             rows={4}
           />
-
-          <button onClick={editingItem ? handleUpdate : handleCreate}>
-            Сохранить
-          </button>
-          <button onClick={closeModal}>Отмена</button>
         </div>
       </Modal>
 
-      {/* Модалка удаления */}
-      <Modal open={deleteModalOpen} onClose={closeDeleteModal}>
+      <Modal
+        open={deleteModalOpen}
+        onClose={closeDeleteModal}
+        title="Перместить элемент в корзину?"
+        actions={
+          <>
+            <div className={styles.buttons}>
+              <button className={styles.secondary} onClick={closeDeleteModal}>
+                Отмена
+              </button>
+              <button className={styles.danger} onClick={confirmDelete}>
+                Переместить в корзину
+              </button>
+            </div>
+          </>
+        }
+      >
         {editingItem && (
-          <div>
-            <h2>Удалить элемент?</h2>
-            <p>
-              Вы уверены, что хотите удалить <strong>{editingItem.title}</strong>?
-            </p>
-            <button onClick={confirmDelete}>Удалить</button>
-            <button onClick={closeDeleteModal}>Отмена</button>
-          </div>
+          <p>
+            Вы уверены, что хотите переместить в корзину <strong>{editingItem.title}</strong>?
+          </p>
         )}
       </Modal>
-
     </div>
   );
 }

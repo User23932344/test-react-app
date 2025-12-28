@@ -4,11 +4,36 @@ html, body, #root {
   height: 100%;
   width: 100%;
   margin: 0;
-  overflow: hidden;
+  overflow: auto;
   font-family: 'Inter', sans-serif;
   background-color: $color-bg;
   color: $color-text;
 }
+
+body::-webkit-scrollbar {
+  width: 8px;  
+}
+
+body::-webkit-scrollbar-track {
+  background: #1e1e1e;    
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: $color-header;  
+  border-radius: 4px;
+  border: 2px solid #1e1e1e; 
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: $color-bg;   
+}
+
+body {
+  scrollbar-width:thin;   
+  scrollbar-color: $color-footer #1e1e1e; 
+}
+
 
 * {
   box-sizing: border-box;
